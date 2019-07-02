@@ -22,8 +22,9 @@ export class AppComponent {
   title: string = 'Soccer Players Web App';
   players: Object[];
   tableVariables: Object[];
-  allVariables: Object;
-  notTableVariables: Object;
+  localAllVariables: Object[];
+  allVariables: Object[];
+  notTableVariables: Object[];
 
   // Initialize out data service for get requests to the API and the title service to change the title.
   constructor(private data: DataService, private titleService: Title) { }
@@ -32,7 +33,9 @@ export class AppComponent {
 
   // This function takes 2 objects as input, the array of all variables and the array of table variables, and 
   // returns the variables that are not in the table variables.
-  private getNotTableVariables(allVariables, tableVariables): Object {
+  private getNotTableVariables(allVariables, tableVariables): Object[] {
+    this.localAllVariables = Array.from(allVariables)
+
     // Initalize the array lengths to zero in case of issues passing the arrays through.
     var l1 = 0;
     var l2 = 0;
@@ -40,11 +43,11 @@ export class AppComponent {
     // for each variable in the table loop through all variables in allVariables.
     l1 = tableVariables.length;
     for (var j = 0; j < l1; j++) {
-      l2 = allVariables.length;
+      l2 = this.localAllVariables.length;
       for (var i = 0; i < l2; i++){
         // This if checks the variables are equal and will then remove the variable from all variables.
-        if (JSON.stringify(tableVariables[j]) == JSON.stringify(allVariables[i])) {
-          allVariables.splice(i, 1);
+        if (JSON.stringify(tableVariables[j]) == JSON.stringify(this.localAllVariables[i])) {
+          this.localAllVariables.splice(i, 1);
           i--;
           l2--;
         }
@@ -52,7 +55,7 @@ export class AppComponent {
     }
 
     // We return the modified local copy of allVariables that only has the variables not in the table remaining.
-    return allVariables;
+    return this.localAllVariables;
   }
 
   // This function is activated on click and allows us to add a variable to the table.
@@ -69,7 +72,7 @@ export class AppComponent {
     // Find where input is in tableVariables
     for (var i = 0; i < this.tableVariables.length; i++) {
       if (this.tableVariables[i]["id"] == input ) {
-        // Once we've found the matchin entry, remove it.
+        // Once we've found the matching entry, remove it.
         this.tableVariables.splice(i, 1);
         i--; 
       }
@@ -196,6 +199,7 @@ export class AppComponent {
     
     // Get the notTableVariables based on the above information. 
     this.notTableVariables = this.getNotTableVariables(this.allVariables, this.tableVariables)
+
   }
   
 }
