@@ -59,4 +59,4 @@ def web_app():
 
 ## Required main method to run the above code
 if __name__ == '__main__':
-    app.run()
+    app.run(host=0.0.0.0)
