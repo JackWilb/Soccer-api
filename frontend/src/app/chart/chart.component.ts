@@ -8,17 +8,17 @@ import * as d3 from 'd3';
 })
 export class ChartComponent implements OnInit {
   // Initialize variables with default values
-  currentVariable: String = "Age";
+  currentVariable: string = "Age";
   highlightValue: String = "randomString";
   highlightPlayer: Object;
   highlightPlayerName: String = "";
   margin = { top: 50, right: 20, bottom: 30, left: 40 };
 
   // Grab what we need from the page load
-  @ViewChild('chart')
+  @ViewChild('chart', {static: false})
     private chartContainer: ElementRef;
   @Input()
-  data: Object;
+  data: Object[];
 
   // No additonal constructors or oninit command.
   constructor() { }
@@ -65,7 +65,7 @@ export class ChartComponent implements OnInit {
     // Summarize the table so the bars show correctly
     var summaryStats = d3.nest()
       .key(function(d) { return d[variable]; })
-      .rollup(function(v) { return v.length; })
+      .rollup(function(v) { return v.length as any; })
       .sortKeys(d3.ascending)
       .entries(data);
 
@@ -89,7 +89,7 @@ export class ChartComponent implements OnInit {
     const y = d3
       .scaleLinear()
       .rangeRound([contentHeight, 0])
-      .domain([0, d3.max(summaryStats, d => d.value)]);
+      .domain([0, d3.max(summaryStats, d => Number(d["value"]))]);
 
     // Move the graph pane to the right position
     const g = svg.append('g')

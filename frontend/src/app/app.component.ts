@@ -19,20 +19,20 @@ import * as d3 from "d3";
 */
 export class AppComponent {
   // Set title and the objects that will hold the players data and which variables are being displayed.
-  title: String = 'Soccer Players Web App';
-  players: Object;
-  tableVariables: Object;
+  title: string = 'Soccer Players Web App';
+  players: Object[];
+  tableVariables: Object[];
   allVariables: Object;
   notTableVariables: Object;
 
   // Initialize out data service for get requests to the API and the title service to change the title.
   constructor(private data: DataService, private titleService: Title) { }
 
-  @ViewChild(ChartComponent) child;
+  @ViewChild(ChartComponent, {static: false}) child;
 
   // This function takes 2 objects as input, the array of all variables and the array of table variables, and 
   // returns the variables that are not in the table variables.
-  private getNotTableVariables(allVariables, tableVariables): void {
+  private getNotTableVariables(allVariables, tableVariables): Object {
     // Initalize the array lengths to zero in case of issues passing the arrays through.
     var l1 = 0;
     var l2 = 0;
@@ -68,7 +68,7 @@ export class AppComponent {
   public removeVariable(input): void {
     // Find where input is in tableVariables
     for (var i = 0; i < this.tableVariables.length; i++) {
-      if (this.tableVariables[i].id == input ) {
+      if (this.tableVariables[i]["id"] == input ) {
         // Once we've found the matchin entry, remove it.
         this.tableVariables.splice(i, 1);
         i--; 
@@ -119,7 +119,7 @@ export class AppComponent {
   	
     // Get the players data from the api using our service.
     this.data.getPlayers().subscribe(data => {
-          this.players = data
+        this.players = Object.values(data)
     })
 
     // Hard code the tableVariables. This could be programatic for compatibility but is hard coded as a time saver. 
