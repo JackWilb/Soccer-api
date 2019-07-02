@@ -1,0 +1,91 @@
+<body ng-app="myapp" ng-controller="tableController">
+  <!-- This is the header and it contains the title and bar -->
+  <div class="header">
+     <ul>
+      <h1>Soccer Player Web App</h1>
+    </ul> 
+  </div>
+
+  <!-- This is the body and it contains the variable adder/remover, the table, and the visual -->
+  <div class="body">
+    
+    <!-- Here is the div for the left side panel -->
+    <div id="left" style="overflow-x:auto;">
+
+      <!-- Here is the variable appender dropdown and button -->
+      <div id ="addvariable">
+        <p>Select a variable to add to the table:</p>
+        <select name="add_var" size="1" #addvar>
+          <ng-container *ngFor="let variable of notTableVariables">
+            <option value="{{ variable.id }}">{{ variable.id }}</option>
+          </ng-container>
+        </select>
+
+         <button type="button" (click)="addVariable(addvar.value)" ng-init="count=0">Add</button> 
+
+      </div>
+      
+      <!-- Here is the variable remover dropdown and button -->
+      <div id="removevariable">
+        <p>Select a variable to remove from the table:</p>
+        <select name="remove_var" size="1" #removevar>
+          <ng-container *ngFor="let variable of tableVariables">
+            <option value="{{ variable.id }}">{{ variable.id }}</option>
+          </ng-container>
+        </select>
+
+         <button (click)="removeVariable(removevar.value)" ng-init="count=0">Remove</button> 
+
+      </div>
+
+      <!-- Here is the table -->
+      <table *ngIf="players">
+         <thead><tr>
+          <ng-container *ngFor="let variable of tableVariables">
+            <th><a (click)="sortVariable(variable.id)">{{ variable.id }}</a></th>
+          </ng-container>
+          </tr></thead>
+         <tbody>
+            <ng-container *ngFor="let player of players">
+               <tr (click)="highlight(player)" class="{{player.highlight}}">
+                  <ng-container *ngFor="let variable of tableVariables">
+                   <td>{{ player[variable.id] }}</td>
+                 </ng-container>
+               </tr>
+             </ng-container>
+         </tbody>
+       </table>
+     </div>
+
+
+    <!-- Here is the right, graph side div -->
+    <div id="right">
+
+    <!-- Here is the graph variable dropdown and button -->
+      <div id="graphselector">
+        <p>Select a variable to graph:</p>
+        <select name="graph_var" size="1" #graphvar>
+          <ng-container *ngFor="let variable of tableVariables">
+            <option value="{{ variable.id }}">{{ variable.id }}</option>
+          </ng-container>
+        </select>
+
+         <button (click)="graphVariable(graphvar.value)">Graph</button> 
+
+      </div>
+    
+    <!-- Here is the graph. We call to angular to generate the view -->
+      <app-chart [data]="players"></app-chart>
+    </div>
+    <!-- -->
+    <!-- -->
+
+  </div>
+  <!-- This is the footer and it contains some additional info about who I am and where to find the source code. -->
+  <div class="footer">
+    <p>This website and api was created by Jack Wilburn. The code is open soure and is available on <a href="http://www.github.com/JackWilb/Soccer-api">my github</a>.</p>
+  </div>
+
+</body>
+
+<router-outlet></router-outlet>

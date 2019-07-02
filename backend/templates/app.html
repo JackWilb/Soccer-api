@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<hmtl>
+	<head>
+		<!-- Set local variables and title -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>Soccer Player Web App</title>
+
+		<!-- Import compiled bootstrap, theme, and other requirements for javascript -->
+  		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  		<link rel="stylesheet" href="{{ url_for('static',filename='styles/app.css') }}">
+
+  		<!-- Import D3 -->
+		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<!-- This is the header and it contains the navigation bar -->
+		<div class="header">
+			 <ul>
+			  <li><a href="/players/LionelMessi">Single Player</a></li>
+			  <li><a href="/players/">All Players</a></li>
+			  <li><a href="/countries/">Countries</a></li>
+			  <li><a href="/clubs/">Clubs</a></li>
+			  <li><a href="/attributes/">Attributes</a></li>
+			  <li><a href="/app/" class="active">App</a></li>
+			</ul> 
+		</div>
+
+		<!-- This is the body and it contains the scripts to pull data, the table, and the visual -->
+		<div class="body">
+			<h1>Soccer Player Web App</h1>
+
+			<!-- Here is the table -->
+			<table>
+				<thead>
+				</thead>
+
+				<tbody>
+				</tbody>
+			</table>
+
+			<script lang="javascript" type="text/javascript">
+				var data = fetch("http://localhost:5000/players/")
+				.then((resp) => resp.json())
+				.then(function(data) {
+					return data.map(function(player {
+						let 
+					}))
+				})
+
+			</script>
+
+			<!-- Here is the graph -->
+
+			<!-- -->
+			<!-- -->
+
+		</div>
+		<!-- This is the footer and it contains some additional info about who I am -->
+		<div class="footer">
+			<p>This website and api was created by Jack Wilburn. The code is open soure and is available on <a href="http://www.githube.com/JackWilb/Soccer-api">my github</a>.</p>
+		</div>
+	</body>
+</hmtl>
