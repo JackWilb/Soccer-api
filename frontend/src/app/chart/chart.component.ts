@@ -12,7 +12,7 @@ export class ChartComponent implements OnInit {
   highlightValue: String = "randomString";
   highlightPlayer: Object;
   highlightPlayerName: String = "";
-  margin: Object = { top: 50, right: 20, bottom: 30, left: 40 };
+  margin = { top: 50, right: 20, bottom: 30, left: 40 };
 
   // Grab what we need from the page load
   @ViewChild('chart')
