@@ -8,7 +8,7 @@ prominent soccer players and will visualize their abilities vs the other players
 ## Import libraries and open the data
 
 from flask import Flask, jsonify, render_template
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 import json
 
 app = Flask(__name__)
