@@ -26,6 +26,7 @@ def player(text):
     return jsonify(result)
 
 @app.route('/players/')
+@cross_origin()
 def players():
     # Return the whole dataset
     return jsonify(data)
