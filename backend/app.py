@@ -12,7 +12,7 @@ from flask_cors import CORS
 import json
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, headers={'Access-Control-Request-Headers', 'Content-Type', 'Access-Control-Allow-Origin'})
 
 with open('soccer_small.json') as json_data:
     data = json.load(json_data)
