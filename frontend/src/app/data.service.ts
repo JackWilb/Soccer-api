@@ -9,6 +9,6 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   getPlayers() {
-  	return this.http.get("http://127.0.0.1:5000/players/")
+  	return this.http.get("http://24.10.255.47:5000/players/")
   }
 }
